@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://liangronghua.com">
-  <title>gulp制作css精灵图 | liangronghua blog</title>
+  <title>gulp制作css雪碧图 | liangronghua blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="随笔,gulp,自动化">
+  <meta name="description" content="在Web前端开发的过程中，Web页面加载是性能杀手，解决了Web页面加载的问题，前端工程的性能可以提升80%左右，所以，使用一些比较好的工具，引入一些比较先进的思想是很有必要的。这篇博客就介绍一下使用gulp来制作雪碧图。">
+<meta name="keywords" content="随笔,gulp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gulp制作css精灵图">
+<meta property="og:title" content="gulp制作css雪碧图">
 <meta property="og:url" content="http://liangronghua.com/2017/11/08/gulp制作css精灵图/index.html">
 <meta property="og:site_name" content="liangronghua blog">
+<meta property="og:description" content="在Web前端开发的过程中，Web页面加载是性能杀手，解决了Web页面加载的问题，前端工程的性能可以提升80%左右，所以，使用一些比较好的工具，引入一些比较先进的思想是很有必要的。这篇博客就介绍一下使用gulp来制作雪碧图。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-03-29T04:59:19.223Z">
+<meta property="og:updated_time" content="2018-03-30T02:44:28.010Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gulp制作css精灵图">
+<meta name="twitter:title" content="gulp制作css雪碧图">
+<meta name="twitter:description" content="在Web前端开发的过程中，Web页面加载是性能杀手，解决了Web页面加载的问题，前端工程的性能可以提升80%左右，所以，使用一些比较好的工具，引入一些比较先进的思想是很有必要的。这篇博客就介绍一下使用gulp来制作雪碧图。">
   
     <link rel="alternative" href="/atom.xml" title="liangronghua blog" type="application/atom+xml">
   
@@ -173,7 +176,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      gulp制作css精灵图
+      gulp制作css雪碧图
     </h1>
   
 
@@ -186,7 +189,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>在Web前端开发的过程中，Web页面加载是性能杀手，解决了Web页面加载的问题，前端工程的性能可以提升80%左右，所以，使用一些比较好的工具，引入一些比较先进的思想是很有必要的。这篇博客就介绍一下使用gulp来制作雪碧图。<br><a id="more"></a></p>
+<blockquote>
+<p>雪碧图（sprite）是把多张图片拼到一张图中，提升性能的一种做法。把合并的图片一次性加载到内存中，需要时只渲染一部分。大大提高了页面响应速度。</p>
+</blockquote>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><ul>
+<li>安装gulp：cnpm install gulp –save-dev</li>
+<li>安装雪碧图需要的插件：cnpm install –save-dev gulp.spritesmith</li>
+<li>建立package.json文件</li>
+<li>新建gulpfile.js详情点击</li>
+<li>要生成的图片：</li>
+</ul>
+<h4 id="gulpfile-js"><a href="#gulpfile-js" class="headerlink" title="gulpfile.js"></a>gulpfile.js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp=<span class="built_in">require</span>(<span class="string">'gulp'</span>);  </span><br><span class="line">spritesmith=<span class="built_in">require</span>(<span class="string">'gulp.spritesmith'</span>);  </span><br><span class="line">  </span><br><span class="line">gulp.task(<span class="string">'sprite'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    gulp.src(<span class="string">'src/images/*.png'</span>)  </span><br><span class="line">    .pipe(spritesmith(&#123;  </span><br><span class="line">         imgName:<span class="string">'sprite.png'</span>,  </span><br><span class="line">         cssName:<span class="string">'css/sprite.css'</span>,  </span><br><span class="line">         padding:<span class="number">5</span>,  </span><br><span class="line">         algorithm:<span class="string">'binary-tree'</span>  </span><br><span class="line">     &#125;))  </span><br><span class="line">     .pipe(gulp.dest(<span class="string">'dist/'</span>))  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释一下这个js，首先，我们引用了gulp和spritesmith这个插件，接着新建名为sprite的任务，我们需要合成雪碧图的文件在src的images文件夹里，“*”为通配符，表示这个文件夹里所有.png格式的文件都会被使用。然后，我们把这个任务放到通道（gulp机制）里，imgName为生成图的名称，css为对应生成的css文件，padding表示合成时两个图片的间距。在这里要说一下algorithm，他有四个可选值，分别为top-down、left-right、diagonal、alt-diagonal、binary-tree，表现形式如下：</p>
+</blockquote>
+<p>最后，把生成的文件放到dist文件夹下，效果如下：</p>
+<h4 id="生成的css"><a href="#生成的css" class="headerlink" title="生成的css"></a>生成的css</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.icon-0</span> &#123;  </span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(../sprite.png);  </span><br><span class="line">  <span class="attribute">background-position</span>: <span class="number">0px</span> <span class="number">0px</span>;  </span><br><span class="line">  <span class="attribute">width</span>: <span class="number">59px</span>;  </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">60px</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="selector-class">.icon-1</span> &#123;  </span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(../sprite.png);  </span><br><span class="line">  <span class="attribute">background-position</span>: <span class="number">0px</span> -<span class="number">65px</span>;  </span><br><span class="line">  <span class="attribute">width</span>: <span class="number">57px</span>;  </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">55px</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="selector-class">.icon-2</span> &#123;  </span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(../sprite.png);  </span><br><span class="line">  <span class="attribute">background-position</span>: -<span class="number">64px</span> <span class="number">0px</span>;  </span><br><span class="line">  <span class="attribute">width</span>: <span class="number">62px</span>;  </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">54px</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，基本的雪碧图就生成好了，当然，如果还想有更多的样式，我们可以引入模板cssTemplate或者直接写个函数</p>
+<h4 id="样式模板"><a href="#样式模板" class="headerlink" title="样式模板"></a>样式模板</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#sprites&#125;&#125;//模板，直接在JS里面根据路径调用即可，#代表循环  </span><br><span class="line">.icon-&#123;&#123;name&#125;&#125;&#123;  </span><br><span class="line">    background-image: url(<span class="string">"&#123;&#123;escaped_image&#125;&#125;"</span>);  </span><br><span class="line">    background-position: &#123;&#123;px.offset_x&#125;&#125; &#123;&#123;px.offset_y&#125;&#125;;  </span><br><span class="line">    width: &#123;&#123;px.width&#125;&#125;;  </span><br><span class="line">    height: &#123;&#123;px.height&#125;&#125;;  </span><br><span class="line">&#125;  </span><br><span class="line">&#123;&#123;/sprites&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cssTemplate: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;<span class="comment">//函数，直接写到gulpfile.js文件即可。  </span></span><br><span class="line">    <span class="keyword">var</span> arr=[];  </span><br><span class="line">    data.sprites.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">sprite</span>) </span>&#123;  </span><br><span class="line">        arr.push(<span class="string">".icon-"</span>+sprite.name+  </span><br><span class="line">        <span class="string">"&#123;"</span> +  </span><br><span class="line">        <span class="string">"background-image: url('"</span>+sprite.escaped_image+<span class="string">"');"</span>+  </span><br><span class="line">        <span class="string">"background-position: "</span>+sprite.px.offset_x+<span class="string">"px "</span>+sprite.px.offset_y+<span class="string">"px;"</span>+  </span><br><span class="line">        <span class="string">"width:"</span>+sprite.px.width+<span class="string">";"</span>+  </span><br><span class="line">        <span class="string">"height:"</span>+sprite.px.height+<span class="string">";"</span>+  </span><br><span class="line">        <span class="string">"&#125;\n"</span>);  </span><br><span class="line">    &#125;);  </span><br><span class="line">    <span class="keyword">return</span> arr.join(<span class="string">""</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -225,10 +248,6 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">gulp</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">自动化</a>
         		</li>
       		
 		</ul>
@@ -299,8 +318,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2017/11/06/gulp防止页面文件缓存/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">gulp阻止页面文件缓存</div>
+    <a href="/2017/09/09/gulp搭建项目/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用gulp构建项目</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -420,19 +439,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">自动化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">js</a>
+                <a href="javascript:void(0)" class="js-tag color4">自动化</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color3">js</a>
               </li>
             
             <div class="clearfix"></div>
